@@ -28,7 +28,6 @@ public class MyDC {
 		
 		private Map<String, String> abMap = new HashMap<String, String>();
 				private Text outputKey = new Text();
-				private Text outputValue = new Text();
 		
 		protected void setup(Context context) throws java.io.IOException, InterruptedException{
 			Path[] files = DistributedCache.getLocalCacheFiles(context.getConfiguration());
@@ -56,14 +55,16 @@ public class MyDC {
         protected void map(LongWritable key, Text value, Context context)
             throws java.io.IOException, InterruptedException {
         	
-        	
+        	//key - 0
+        	//value -- up	199654321
         	String row = value.toString();
         	String[] tokens = row.split("\t");
-        	String inab = tokens[0];
-        	String state = abMap.get(inab);
+        	//tokens[0] = up
+        	//tokens[1] = 199654321
+        	String inab = tokens[0]; //up
+        	String state = abMap.get(inab);//Uttar_Pradesh
         	outputKey.set(state);
-        	outputValue.set(row);
-      	  	context.write(outputKey,outputValue);
+      	  	context.write(outputKey,value);
         }  
 }
 	
@@ -77,7 +78,7 @@ public class MyDC {
     job.setNumReduceTasks(0);
     
     try{
-    DistributedCache.addCacheFile(new URI("/abc.dat"), job.getConfiguration());
+    DistributedCache.addCacheFile(new URI("/user/edureka/ADMR/abc.dat"), job.getConfiguration());
     }catch(Exception e){
     	System.out.println(e);
     }
