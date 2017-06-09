@@ -30,6 +30,9 @@ public class BinaryFilesToHadoopSequenceFile {
 		throws IOException, InterruptedException {
 
 			//logger.info("map method called..");
+			
+			//key -- 0
+			//value -- /user/edureka/images/auto_loan.png
 
 			String uri = value.toString();
 			Configuration conf = new Configuration();
